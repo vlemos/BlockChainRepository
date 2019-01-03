@@ -1,0 +1,9 @@
+com\vlemos\blockchainproject\BlockChainProjectApplication.class
+com\vlemos\blockchainproject\services\TransactionService.class
+com\vlemos\blockchainproject\services\DBServices.class
+com\vlemos\blockchainproject\domain\Wallet.class
+com\vlemos\blockchainproject\domain\Transaction.class
+com\vlemos\blockchainproject\services\WalletService.class
+com\vlemos\blockchainproject\repository\TransactionRepository.class
+com\vlemos\blockchainproject\repository\WalletRepository.class
+com\vlemos\blockchainproject\config\TestConfig.class
