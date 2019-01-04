@@ -9,7 +9,9 @@ import com.vlemos.blockchainproject.domain.Transaction;
 import com.vlemos.blockchainproject.domain.Wallet;
 import com.vlemos.blockchainproject.domain.enums.StatusTransacation;
 import com.vlemos.blockchainproject.repository.TransactionRepository;
+import com.vlemos.blockchainproject.services.exceptions.ObjectNotFoundException;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +33,31 @@ public class TransactionService {
     public Transaction insert(Transaction obj){
         obj.setId(null);
         return repo.save(obj);
+    }
+    
+        public Transaction find(Integer id) {
+        Optional<Transaction> obj;
+        obj = repo.findById(id);
+        return obj.orElseThrow(() -> new ObjectNotFoundException(
+                  "Objeto Não encontrado! Id: " + id + " Tipo " + Transaction.class.getName()));
+    }
+    
+      public Transaction update(Transaction obj) {
+        Transaction newObj = find(obj.getId());
+        updateData(newObj, obj);
+        return repo.save(obj);
+    }
+    
+     
+     private void updateData(Transaction newObj, Transaction obj) {
+        
+        newObj.setBlock(obj.getBlock());
+        newObj.setDestino(obj.getDestino());
+        newObj.setOrigem(obj.getOrigem());
+       // newObj.setStatusTransaction(obj.getStatusTransaction());
+        newObj.setValor(obj.getValor());
+        
+        
     }
     
     public Transaction transfer(Wallet walletOrigem, Wallet walletDestino, Double valor) {

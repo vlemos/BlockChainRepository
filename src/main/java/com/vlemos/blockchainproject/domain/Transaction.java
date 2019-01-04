@@ -34,9 +34,14 @@ public class Transaction implements Serializable{
     @ManyToOne
     @JoinColumn(name = "destino_Wallet") 
     private Wallet destino;
+   
+    
     private Double valor;
-
     private int statusTransaction;
+    
+    @ManyToOne
+    @JoinColumn(name = "block_id") 
+    private Block block;
     
     public Transaction() {
     }
@@ -88,6 +93,16 @@ public class Transaction implements Serializable{
     public void setStatusTransaction(int statusTransaction) {
         this.statusTransaction = statusTransaction;
     }
+
+    public Block getBlock() {
+        return block;
+    }
+
+    public void setBlock(Block block) {
+        this.block = block;
+    }
+    
+       
 
     @Override
     public int hashCode() {
