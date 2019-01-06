@@ -38,9 +38,9 @@ public class BlockChainService {
         blockchain = repo.save(obj);
         blockchain = find(1);
         
-//        if(blockchain.getChain().isEmpty()){
-//            initGenesisBlock(blockchain);
-//        } 
+        if(blockchain.getChain().isEmpty()){
+            initGenesisBlock(blockchain);
+        } 
         
         return blockchain;
     }
@@ -82,7 +82,12 @@ public class BlockChainService {
     public int getPreviousHash() {
         BlockChain chain = find(1);
         List<Block> blocks = chain.getChain();
-        return blocks.get(blocks.size()-1).getHash();
+        if(blocks.size() != 0){
+            return blocks.get(blocks.size()-1).getHash();
+        }else{
+            return blocks.get(blocks.size()).getHash();
+        }
+        
     }
     
 }

@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -21,7 +22,6 @@ import org.hibernate.annotations.Proxy;
  */
 
 @Entity
-@Proxy(lazy = false)
 public class BlockChain implements Serializable{
     private static final long serialVersionUID = 1L;
  
@@ -29,7 +29,7 @@ public class BlockChain implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     
-    @OneToMany(mappedBy = "blockChain")
+    @OneToMany(mappedBy = "blockChain",  fetch = FetchType.EAGER)
     List<Block> chain = new ArrayList<>();
 
     public BlockChain(int id) {

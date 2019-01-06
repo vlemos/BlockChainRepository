@@ -64,6 +64,8 @@ public class TransactionService {
         Transaction transaction;
         if (existeSaldo(walletOrigem,valor)) {
             transaction = new Transaction(null, walletOrigem, walletDestino, valor, StatusTransacation.PENDING);
+            walletOrigem.setSaldo(walletOrigem.getSaldo() - valor);
+            walletDestino.setSaldo(walletDestino.getSaldo() + valor);
         } else {
             return null;
         }
