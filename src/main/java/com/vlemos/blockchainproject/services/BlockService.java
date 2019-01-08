@@ -7,6 +7,7 @@ package com.vlemos.blockchainproject.services;
 
 import com.vlemos.blockchainproject.domain.Block;
 import com.vlemos.blockchainproject.repository.BlockRepository;
+//import java.util.Timer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,5 +24,5 @@ public class BlockService {
         obj.setId(null);
         return repo.save(obj);
     }
-    
+     
 }

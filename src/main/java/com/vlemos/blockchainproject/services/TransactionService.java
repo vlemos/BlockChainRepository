@@ -45,7 +45,7 @@ public class TransactionService {
       public Transaction update(Transaction obj) {
         Transaction newObj = find(obj.getId());
         updateData(newObj, obj);
-        return repo.save(obj);
+        return repo.save(newObj);
     }
     
      
@@ -54,7 +54,7 @@ public class TransactionService {
         newObj.setBlock(obj.getBlock());
         newObj.setDestino(obj.getDestino());
         newObj.setOrigem(obj.getOrigem());
-       // newObj.setStatusTransaction(obj.getStatusTransaction());
+        newObj.setStatusTransaction(StatusTransacation.COMMITED.getCod());
         newObj.setValor(obj.getValor());
         
         
