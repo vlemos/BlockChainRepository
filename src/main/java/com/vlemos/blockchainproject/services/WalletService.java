@@ -6,7 +6,10 @@
 package com.vlemos.blockchainproject.services;
 
 import com.vlemos.blockchainproject.domain.Wallet;
+import com.vlemos.blockchainproject.dto.WalletDto;
 import com.vlemos.blockchainproject.repository.WalletRepository;
+import com.vlemos.blockchainproject.services.exceptions.ContraintViolationException;
+import com.vlemos.blockchainproject.services.exceptions.DataIntegrityException;
 import com.vlemos.blockchainproject.services.exceptions.ObjectNotFoundException;
 import java.util.List;
 import java.util.Optional;
@@ -36,9 +39,20 @@ public class WalletService {
         return repo.findAll();
     }
     
-    public Wallet insert(Wallet obj){
+    
+//    Precisa tratar este ponto, pois ao tentar inserir uma carteira com nome já existente, gera uma exceção.
+    public Wallet insert(Wallet obj) {
+        Wallet savedObj = null;
         obj.setId(null);
-        return repo.save(obj);
+        
+        try {
+            savedObj = repo.save(obj);
+        } catch (Exception e) {
+            Optional<Wallet> ret = null;    
+            return  ret.orElseThrow(() -> new ContraintViolationException(
+                  "Já existe uma carteira com este nome"));        
+        }
+        return savedObj;
     }
     
       public Wallet update(Wallet obj) {
@@ -56,6 +70,11 @@ public class WalletService {
         
         
         
+    }
+
+    public Wallet fromDTO(WalletDto objDto) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return new Wallet(objDto.getId(), objDto.getNome(),0.00);
     }
 
     

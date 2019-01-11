@@ -6,27 +6,37 @@
 package com.vlemos.blockchainproject.domain;
 
 import java.io.Serializable;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+
 /**
  *
  * @author Vinicius Lemos
  */
 @Entity
+
 public class Wallet implements Serializable{
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    
+   
+   @Column(unique = true)
     private String nome;
+   
+   
     private Double saldo;
     
     @OneToMany(mappedBy = "origem")
@@ -68,6 +78,7 @@ public class Wallet implements Serializable{
         this.saldo = saldo;
     }
 
+  
     public List<Transaction> getTransacoesOrigem() {
         return transacoesOrigem;
     }
@@ -76,6 +87,7 @@ public class Wallet implements Serializable{
         this.transacoesOrigem = transacoesOrigem;
     }
 
+
     public List<Transaction> getTransacoesDestino() {
         return transacoesDestino;
     }
@@ -83,8 +95,7 @@ public class Wallet implements Serializable{
     public void setTransacoesDestino(List<Transaction> transacoesDestino) {
         this.transacoesDestino = transacoesDestino;
     }
-    
-    
+
 
     @Override
     public int hashCode() {
@@ -118,8 +129,20 @@ public class Wallet implements Serializable{
         }
         return true;
     }
-    
-    
-    
-    
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("pt","BR") );
+        builder.append("Nome :");
+        builder.append(getNome());
+        builder.append(", Saldo :");
+        builder.append(nf.format(getSaldo()));
+        builder.append(", Origem :");
+        builder.append(getTransacoesOrigem());
+        builder.append("Destino");
+        builder.append(getTransacoesDestino());        
+        return builder.toString();
+        
+    }
 }

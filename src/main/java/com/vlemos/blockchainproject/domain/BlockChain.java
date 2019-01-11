@@ -5,6 +5,7 @@
  */
 package com.vlemos.blockchainproject.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -49,6 +50,7 @@ public class BlockChain implements Serializable{
 
    
 
+    @JsonIgnore
     public List<Block> getChain() {
         return chain;
     }

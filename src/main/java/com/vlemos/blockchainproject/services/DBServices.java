@@ -125,6 +125,7 @@ public class DBServices {
         
         
         transactionService.insert(transacao4);
+        walletService.update(wallet2);
         walletService.update(wallet4);
         
         Block block3 = new Block(null, "1", sdf.parse("30/01/2019 10:30"), blockChainService.getPreviousHash(),blockChain);

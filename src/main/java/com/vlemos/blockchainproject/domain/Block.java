@@ -6,6 +6,7 @@
 package com.vlemos.blockchainproject.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -104,6 +105,7 @@ public class Block implements Serializable{
         this.previousHash = previousHash;
     }
 
+    @JsonIgnore
     public List<Transaction> getTransactions() {
         return transactions;
     }

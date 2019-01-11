@@ -5,8 +5,11 @@
  */
 package com.vlemos.blockchainproject.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.vlemos.blockchainproject.domain.enums.StatusTransacation;
 import java.io.Serializable;
+import java.text.NumberFormat;
+import java.util.Locale;
 import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -62,6 +65,7 @@ public class Transaction implements Serializable{
         this.id = id;
     }
 
+    @JsonIgnore
     public Wallet getOrigem() {
         return origem;
     }
@@ -70,6 +74,7 @@ public class Transaction implements Serializable{
         this.origem = origem;
     }
 
+    @JsonIgnore
     public Wallet getDestino() {
         return destino;
     }
@@ -94,6 +99,7 @@ public class Transaction implements Serializable{
         this.statusTransaction = statusTransaction;
     }
 
+    @JsonIgnore
     public Block getBlock() {
         return block;
     }
@@ -139,6 +145,28 @@ public class Transaction implements Serializable{
             return false;
         }
         return true;
+    }
+
+    @Override
+    public String toString() {
+        //return "Transaction{" + "origem=" + origem + ", destino=" + destino + ", valor=" + valor + ", statusTransaction=" + statusTransaction + '}';
+        StringBuilder builder = new StringBuilder();
+        NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("pt","BR") );
+        builder.append("Origem :");
+        builder.append(origem.getNome());
+        builder.append("Destino :");
+        builder.append(destino.getNome());
+        
+        builder.append(", Valor:");
+        builder.append(nf.format(getValor()));
+        
+        builder.append(", Status :");
+        builder.append(statusTransaction);
+        //builder.append("Destino");
+       // builder.append(getTransacoesDestino());
+               
+        return builder.toString();
+        
     }
     
     
